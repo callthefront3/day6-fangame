@@ -112,10 +112,10 @@ export class CharSelectScene extends Phaser.Scene {
 
         if (viewportHeight < keyboardThreshold) { // 키보드 등장
             textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.bottom  = (viewportHeight - rect.bottom + 300 * ratio) + "px";
+            textInput.style.top  = (rect.top + 260 * ratio) + "px";
         } else { // 키보드 사라짐
             textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.bottom  = (viewportHeight - rect.bottom + 300 * ratio) + "px";
+            textInput.style.top  = (rect.top + 260 * ratio) + "px";
         }
     }
 
