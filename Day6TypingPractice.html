@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,interactive-widget: resize-content">
+    <title>:: 데이식스 팬게임 Made by callthefront3 | 데식타자연습 ::</title>
+    <script src="js/phaser.js"></script>
+    <style>
+    @font-face {
+        font-family: 'DOSGothic';
+        src: url('assets/Day6TypingPractice/DOSGothic.ttf') format('truetype');
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        overflow: hidden;
+    }
+
+    #game-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #textInput {
+        position: absolute;
+        padding: 0px 10px 0px 10px;
+        font-family: 'DOSGothic';
+        font-size: 3vw;
+        background-color: transparent;
+        border: none;
+    }
+    #textInput:focus {
+        outline: none;
+    }
+    
+    .shake-element {
+        animation: shake 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-2px); }
+        50% { transform: translateX(2px); }
+        75% { transform: translateX(-2px); }
+        100% { transform: translateX(0); }
+    }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <input type="text" id="textInput" placeholder=""/>
+    </div>
+    <script type="module" src="scenes/Day6TypingPractice/game.js"></script>
+</body>
+</html>
