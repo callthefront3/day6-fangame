@@ -111,8 +111,8 @@ export class CharSelectScene extends Phaser.Scene {
         const keyboardThreshold = window.innerHeight * 0.7; // 화면의 70% 이하로 줄어들면 키보드 등장으로 간주
 
         if (viewportHeight < keyboardThreshold) { // 키보드 등장
-            textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.top  = (rect.top + 260 * ratio) - 400 + "px";
+            // textInput.style.left = (rect.left + 370 * ratio) + "px";
+            // textInput.style.top  = (rect.top + 260 * ratio) - 400 + "px";
         } else { // 키보드 사라짐
             textInput.style.left = (rect.left + 370 * ratio) + "px";
             textInput.style.top  = (rect.top + 260 * ratio) + "px";
