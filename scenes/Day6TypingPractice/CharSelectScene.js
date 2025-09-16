@@ -115,7 +115,7 @@ export class CharSelectScene extends Phaser.Scene {
             textInput.style.bottom  = 20 + "px";
         } else { // 키보드 사라짐
             textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.bottom  = (rect.bottom + 300 * ratio) + "px";
+            textInput.style.bottom  = (viewportHeight - rect.bottom + 300 * ratio) + "px";
         }
     }
 
