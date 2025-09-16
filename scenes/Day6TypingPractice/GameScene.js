@@ -184,7 +184,7 @@ export class GameScene extends Phaser.Scene {
 
             if (viewportHeight < keyboardThreshold) { // 키보드 등장
                 textInput.style.left = (rect.left + 70 * ratio) + "px";
-                textInput.style.top = (rect.top + 430 * ratio) + 400 + "px";
+                textInput.style.top = (rect.top + 430 * ratio) - 400 + "px";
             } else { // 키보드 사라짐
                 textInput.style.left = (rect.left + 70 * ratio) + "px";
                 textInput.style.top = (rect.top + 430 * ratio) + "px";
