@@ -68,8 +68,8 @@ export class CharSelectScene extends Phaser.Scene {
                 families: ['DOSGothic']
             },
             active: () => {
-                this.add.text(370, 200, "이름", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' });
-                this.add.text(560, 360, "게임 시작", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5);
+                this.add.text(370, 200, "이름", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
+                this.add.text(560, 360, "게임 시작", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 1, bottom: 1 });
             }
         });
         

@@ -32,7 +32,7 @@ export class ScoreBoardScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: async () => {
-                this.add.text(590, 492, "다시하기", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5);
+                this.add.text(590, 492, "다시하기", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 1, bottom: 1 });
 
                 let top10 = [];
                 try {
@@ -47,8 +47,8 @@ export class ScoreBoardScene extends Phaser.Scene {
                 top10.forEach((row, i) => {
                     if(i < 8) {
                         this.add.sprite(i % 2 == 0 ? 50 : 430, 100 + Math.floor(i / 2) * 84, 'face' + row.character).setDisplaySize(64, 64).setOrigin(0, 0);
-                        this.add.text(i % 2 == 0 ? 134 : 514, 100 + Math.floor(i / 2) * 84, row.nickname, { fontFamily: "DOSGothic", fontSize: '28px', fill: '#000' });
-                        this.add.text(i % 2 == 0 ? 134 : 514, 134 + Math.floor(i / 2) * 84, row.score, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' });
+                        this.add.text(i % 2 == 0 ? 134 : 514, 100 + Math.floor(i / 2) * 84, row.nickname, { fontFamily: "DOSGothic", fontSize: '28px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
+                        this.add.text(i % 2 == 0 ? 134 : 514, 134 + Math.floor(i / 2) * 84, row.score, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
                     }
                 });
 
@@ -56,8 +56,8 @@ export class ScoreBoardScene extends Phaser.Scene {
 
                 // 내 점수
                 this.add.sprite(50, 460, 'face' + this.character).setDisplaySize(64, 64).setOrigin(0, 0);
-                this.add.text(134, 460, this.nickname, { fontFamily: "DOSGothic", fontSize: '28px', fill: '#000' });
-                this.add.text(134, 494, this.score, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' });
+                this.add.text(134, 460, this.nickname, { fontFamily: "DOSGothic", fontSize: '28px', fill: '#000' }).setPadding({ top: 1, bottom: 1 })
+                this.add.text(134, 494, this.score, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
 
                 const textInput = document.getElementById('textInput');
                 textInput.style.display = "none";
