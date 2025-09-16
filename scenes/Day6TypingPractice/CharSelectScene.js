@@ -85,8 +85,10 @@ export class CharSelectScene extends Phaser.Scene {
             .play('button:doodle')
             .setInteractive()
             .on('pointerdown', () => {
-                if (this.textInput.value !== '') {                    
+                if (this.textInput.value !== '') {
                     this.scene.start('GameScene', { nickname: this.textInput.value, character: this.character });
+                    this.textInput.style.display = 'none';
+                    this.textInput.value = '';
                 } else {
                     this.textInput.classList.add('shake-element');
 

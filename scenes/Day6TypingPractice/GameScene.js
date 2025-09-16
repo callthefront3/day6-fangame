@@ -103,8 +103,8 @@ export class GameScene extends Phaser.Scene {
         // 텍스트 입력 DOM
         this.add.sprite(70, 430, 'inputBar').setDisplaySize(660, 40).setOrigin(0, 0).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
-        this.textInput.value = '';
         this.textInput.placeholder = "가사를 입력해 주세요";
+        this.textInput.value = '';
         textInput.style.display = "inline-block";
         this.textInput.removeAttribute('maxlength');
 
@@ -261,6 +261,8 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
+        this.textInput.style.display = 'none';
+        this.textInput.value = '';
     }
 
     onShutdown() {
