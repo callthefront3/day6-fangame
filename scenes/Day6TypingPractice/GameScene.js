@@ -78,9 +78,9 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.previousSentenceText = this.add.text(400, 280, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 1, bottom: 1 });
-                this.currentSentenceText = this.add.text(400, 335, "", { fontFamily: "DOSGothic", fontSize: '36px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 1, bottom: 1 });
-                this.upcomingSentenceText = this.add.text(400, 390, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 1, bottom: 1 });
+                this.previousSentenceText = this.add.text(400, 280, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
+                this.currentSentenceText = this.add.text(400, 335, "", { fontFamily: "DOSGothic", fontSize: '36px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
+                this.upcomingSentenceText = this.add.text(400, 390, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
             }
         });
 
@@ -88,9 +88,9 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.nicknameText = this.add.text(230, 100, this.nickname, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
-                this.healthText = this.add.text(230, 150, '체력: 100', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
-                this.scoreText = this.add.text(230, 200, '점수: 0', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 1, bottom: 1 });
+                this.nicknameText = this.add.text(230, 100, this.nickname, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
+                this.healthText = this.add.text(230, 150, '체력: 100', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
+                this.scoreText = this.add.text(230, 200, '점수: 0', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
             }
         });
 
