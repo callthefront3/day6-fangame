@@ -28,6 +28,7 @@ export class GameScene extends Phaser.Scene {
         this.levelTimer = 0;
         this.typingTimer = 30 * 1000;
         this.typingTimerLimit = 30 * 1000;
+        this.portraitTimer = null;
         this.timeBar = null;
 
         this._onTextInputKeyDown = null;
@@ -222,8 +223,14 @@ export class GameScene extends Phaser.Scene {
         } else {
             this.typingTimer -= 3 * 1000;
 
+            if (this.portraitTimer)
+                this.portraitTimer.remove(false);
+
             this.portrait.play(this.portrait_key + ':sad');
-            this.time.delayedCall(3000, () => this.portrait.play(this.portrait_key + ':normal'));
+            this.portraitTimer = this.time.delayedCall(3000, () => {
+                this.portrait.play(this.portrait_key + ':normal');
+                this.portraitTimer = null;
+            });
 
             this.sound.play('fail');
         }
@@ -243,8 +250,14 @@ export class GameScene extends Phaser.Scene {
         this.pickSentence();
         this.health -= 10;
 
+        if (this.portraitTimer)
+            this.portraitTimer.remove(false);
+
         this.portrait.play(this.portrait_key + ':sad');
-        this.time.delayedCall(3000, () => this.portrait.play(this.portrait_key + ':normal'));
+        this.portraitTimer = this.time.delayedCall(3000, () => {
+            this.portrait.play(this.portrait_key + ':normal');
+            this.portraitTimer = null;
+        });
 
         this.updateScoreAndHealth();
     }
@@ -252,18 +265,6 @@ export class GameScene extends Phaser.Scene {
     gameOver() {
         if (this._gameOverHandled) return;
         this._gameOverHandled = true;
-
-        const baseUrl = `${window.location.protocol}//${window.location.host}`;
-        fetch(`${baseUrl}/day6-typing-practice/submit-score`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                nickname: this.nickname,
-                character: this.character,
-                score: this.score
-            })
-        });
-
         this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
         this.textInput.style.display = 'none';
         this.textInput.value = '';
