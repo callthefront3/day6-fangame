@@ -20,6 +20,15 @@ export class CharSelectScene extends Phaser.Scene {
         this.load.spritesheet('face2', 'assets/Day6TypingPractice/portrait/youngk_sheet.PNG', { frameWidth: 520, frameHeight: 520 });
         this.load.spritesheet('face3', 'assets/Day6TypingPractice/portrait/wonpil_sheet.png', { frameWidth: 520, frameHeight: 520 });
         this.load.spritesheet('face4', 'assets/Day6TypingPractice/portrait/dowoon_sheet.PNG', { frameWidth: 520, frameHeight: 520 });
+
+        // sound
+        this.load.audio('fail', 'assets/Day6TypingPractice/sound/fail.mp3');
+        this.load.audio('good', 'assets/Day6TypingPractice/sound/good.mp3');
+        this.load.audio('typing1', 'assets/Day6TypingPractice/sound/typing1.wav');
+        this.load.audio('typing2', 'assets/Day6TypingPractice/sound/typing2.wav');
+        this.load.audio('typing3', 'assets/Day6TypingPractice/sound/typing3.wav');
+        this.load.audio('typing4', 'assets/Day6TypingPractice/sound/typing4.wav');
+        this.load.audio('typing5', 'assets/Day6TypingPractice/sound/typing5.wav');
     }
 
     create() {
@@ -55,11 +64,13 @@ export class CharSelectScene extends Phaser.Scene {
         this.arrow_left.setInteractive().on('pointerdown', () => {
             this.character = this.character - 1 < 1 ? 4 : this.character - 1;
             this.redrawPortrait();
+            this.sound.play('fail');
         });
 
         this.arrow_right.setInteractive().on('pointerdown', () => {
             this.character = this.character + 1 > 4 ? 1 : this.character + 1;
             this.redrawPortrait();
+            this.sound.play('fail');
         });
 
         // 닉네임 입력
@@ -77,6 +88,7 @@ export class CharSelectScene extends Phaser.Scene {
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "김마이데이";
         this.textInput.setAttribute('maxlength', '8');
+        this.textInput.addEventListener('input', () => this.playTypingSound());
 
         // 게임 시작하기 버튼
         const button = this.add.sprite(370, 320, 'button')
@@ -86,6 +98,7 @@ export class CharSelectScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', () => {
                 if (this.textInput.value !== '') {
+                    this.sound.play('good');
                     this.scene.start('GameScene', { nickname: this.textInput.value, character: this.character });
                     this.textInput.style.display = 'none';
                     this.textInput.value = '';
@@ -126,5 +139,10 @@ export class CharSelectScene extends Phaser.Scene {
 
         this.portrait.destroy();
         this.portrait = this.add.sprite(100, 200, portrait_key).setDisplaySize(200, 200).setOrigin(0, 0).play(portrait_key + ':normal');
+    }
+    
+    playTypingSound() {
+        const randomKey = Phaser.Utils.Array.GetRandom(['typing1', 'typing2', 'typing3', 'typing4', 'typing5']);
+        this.sound.play(randomKey);
     }
 }

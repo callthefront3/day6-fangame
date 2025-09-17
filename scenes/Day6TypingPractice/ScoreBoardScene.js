@@ -25,6 +25,7 @@ export class ScoreBoardScene extends Phaser.Scene {
             .play('button:doodle')
             .setInteractive()
             .on('pointerdown', () => { 
+                this.sound.play('good');
                 this.scene.start('GameScene', { nickname: this.nickname, character: this.character }); 
             });
 

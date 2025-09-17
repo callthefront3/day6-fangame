@@ -217,11 +217,15 @@ export class GameScene extends Phaser.Scene {
 
             this.portrait.play(this.portrait_key + ':joy');
             this.time.delayedCall(3000, () => this.portrait.play(this.portrait_key + ':normal'));
+
+            this.sound.play('good');
         } else {
             this.typingTimer -= 3 * 1000;
 
             this.portrait.play(this.portrait_key + ':sad');
             this.time.delayedCall(3000, () => this.portrait.play(this.portrait_key + ':normal'));
+
+            this.sound.play('fail');
         }
 
         this.textInput.value = '';
@@ -263,6 +267,11 @@ export class GameScene extends Phaser.Scene {
         this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
         this.textInput.style.display = 'none';
         this.textInput.value = '';
+    }
+
+    playTypingSound() {
+        const randomKey = Phaser.Utils.Array.GetRandom(['typing1', 'typing2', 'typing3', 'typing4', 'typing5']);
+        this.sound.play(randomKey);
     }
 
     onShutdown() {
