@@ -118,7 +118,7 @@ export class GameScene extends Phaser.Scene {
 
         // 이벤트 핸들러 저장 후 등록
         this._onTextInputKeyDown = (event) => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' && this.textInput.value !== '') {
                 this.checkTypedSentence();
             }
         };
