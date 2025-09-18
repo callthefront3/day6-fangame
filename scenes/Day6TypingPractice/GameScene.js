@@ -190,7 +190,7 @@ export class GameScene extends Phaser.Scene {
             const rect = canvas.getBoundingClientRect();
             const ratio = rect.width / 1600; // ✅ 해상도 변경
 
-            textInput.style.width = 1320 * ratio + "px";
+            textInput.style.width = 1300 * ratio + "px";
             textInput.style.height = 80 * ratio + "px";
 
             textInput.style.left = (rect.left + 140 * ratio) + "px";

@@ -131,7 +131,7 @@ export class CharSelectScene extends Phaser.Scene {
         const rect = canvas.getBoundingClientRect();
         const ratio = rect.width / 1600; // ✅ 800 → 1600
 
-        textInput.style.width = 760 * ratio + "px";
+        textInput.style.width = 740 * ratio + "px";
         textInput.style.height = 80 * ratio + "px";
     
         textInput.style.left = (rect.left + 740 * ratio) + "px";
