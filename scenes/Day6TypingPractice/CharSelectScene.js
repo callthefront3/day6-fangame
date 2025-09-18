@@ -60,16 +60,16 @@ export class CharSelectScene extends Phaser.Scene {
         }
 
         // 배경
-        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xfff8d2); // '#fff8d2'
+        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xfff8d2); // '#fff8d2'
 
         // 테두리
-        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x263f99);
-        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x263f99);
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x3e3988);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x3e3988);
 
         // 캐릭터 선택 (좌표 ×2, 크기 ×2)
-        this.portrait = this.add.sprite(200, 400, 'face1').setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x263f99).play('face1:normal');
-        this.arrow_left = this.add.sprite(100, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).setTintFill(0x263f99).setFlipX(true).play('arrow:doodle');
-        this.arrow_right = this.add.sprite(640, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).setTintFill(0x263f99).play('arrow:doodle');
+        this.portrait = this.add.sprite(200, 400, 'face1').setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x3e3988).play('face1:normal');
+        this.arrow_left = this.add.sprite(100, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).setTintFill(0x3e3988).setFlipX(true).play('arrow:doodle');
+        this.arrow_right = this.add.sprite(640, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).setTintFill(0x3e3988).play('arrow:doodle');
 
         this.arrow_left.setInteractive().on('pointerdown', () => {
             this.character = this.character - 1 < 1 ? 4 : this.character - 1;
@@ -89,13 +89,13 @@ export class CharSelectScene extends Phaser.Scene {
                 families: ['DOSGothic']
             },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#263f99' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(740, 400, "이름", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#263f99' }).setPadding({ top: 4, bottom: 4 });
-                this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#263f99' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(740, 400, "이름", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
+                this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
         
-        this.add.sprite(740, 520, 'inputBar').setDisplaySize(760, 80).setOrigin(0, 0).setTintFill(0x263f99).play('inputBar:doodle');
+        this.add.sprite(740, 520, 'inputBar').setDisplaySize(760, 80).setOrigin(0, 0).setTintFill(0x3e3988).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "김마이데이";
         this.textInput.setAttribute('maxlength', '8');
@@ -105,7 +105,7 @@ export class CharSelectScene extends Phaser.Scene {
         const button = this.add.sprite(740, 640, 'button')
             .setDisplaySize(760, 160)
             .setOrigin(0, 0)
-            .setTintFill(0x263f99)
+            .setTintFill(0x3e3988)
             .play('button:doodle')
             .setInteractive()
             .on('pointerdown', () => {
@@ -142,7 +142,7 @@ export class CharSelectScene extends Phaser.Scene {
         const portrait_key = 'face' + this.character;
 
         this.portrait.destroy();
-        this.portrait = this.add.sprite(200, 400, portrait_key).setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x263f99).play(portrait_key + ':normal');
+        this.portrait = this.add.sprite(200, 400, portrait_key).setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x3e3988).play(portrait_key + ':normal');
     }
     
     playTypingSound() {
