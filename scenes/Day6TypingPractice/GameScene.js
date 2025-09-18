@@ -174,7 +174,7 @@ export class GameScene extends Phaser.Scene {
         if (canSetText(this.previousSentenceText) && canSetText(this.currentSentenceText) && canSetText(this.upcomingSentenceText)) {
             this.previousSentenceText.setText(this.previousSentence.raw);
 
-            if(this.typingTimerLimit == 30 * 1000) {
+            if(timeLimit == 30 * 1000) {
                 this.currentSentenceText.setText(this.currentSentence.raw);
                 this.upcomingSentenceText.setText(this.upcomingSentence.raw);
             } else {
