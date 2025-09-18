@@ -64,16 +64,17 @@ export class GameScene extends Phaser.Scene {
         }
 
         // 배경
-        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200); // '#eae7ca'
+        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xfffad4); // '#eae7ca'
 
         // 테두리
-        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
-        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x263f99);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x263f99);
 
         // 얼굴 스프라이트
         this.portrait = this.add.sprite(140, 200, this.portrait_key)
             .setDisplaySize(280, 280)
             .setOrigin(0, 0)
+            .setTintFill(0x263f99)
             .play(this.portrait_key + ':normal');
 
         // 가사 불러오기
@@ -85,7 +86,7 @@ export class GameScene extends Phaser.Scene {
             custom: { families: ['DOSGothic'] },
             active: () => {
                 this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
-                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#263f99' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
                 this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
@@ -94,21 +95,21 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
-                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
-                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#263f99' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#263f99' }).setPadding({ top: 4, bottom: 4 });
+                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#263f99' }).setPadding({ top: 4, bottom: 4 });
+                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#263f99' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
         // 타임바
-        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).play('timeBox:doodle');
-        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5);
+        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).setTintFill(0x263f99).play('timeBox:doodle');
+        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5).setTintFill(0x263f99);
         this.timeBar.fullWidth = this.timeBar.width;
         this.timeBar.thisLimit = this.typingTimerLimit;
 
         // 텍스트 입력 DOM
-        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).play('inputBar:doodle');
+        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x263f99).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "가사를 입력해 주세요";
         this.textInput.value = '';
