@@ -63,15 +63,17 @@ export class GameScene extends Phaser.Scene {
             this.anims.create({ key: "timeBox:doodle", frames: "timeBox", frameRate: 4, repeat: -1 });
         }
 
+        // 배경
+        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200); // '#eae7ca'
+
         // 테두리
-        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x3e3988);
-        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x3e3988);
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
 
         // 얼굴 스프라이트
         this.portrait = this.add.sprite(140, 200, this.portrait_key)
             .setDisplaySize(280, 280)
             .setOrigin(0, 0)
-            .setTintFill(0x3e3988)
             .play(this.portrait_key + ':normal');
 
         // 가사 불러오기
@@ -83,7 +85,7 @@ export class GameScene extends Phaser.Scene {
             custom: { families: ['DOSGothic'] },
             active: () => {
                 this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
-                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#3e3988' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
                 this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
@@ -92,21 +94,21 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.add.text(800, 108, "♣ 데식타자연습 ♣", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
-                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
-                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
         // 타임바
-        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).setTintFill(0x3e3988).play('timeBox:doodle');
-        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5).setTintFill(0x3e3988);
+        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).play('timeBox:doodle');
+        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5);
         this.timeBar.fullWidth = this.timeBar.width;
         this.timeBar.thisLimit = this.typingTimerLimit;
 
         // 텍스트 입력 DOM
-        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x3e3988).play('inputBar:doodle');
+        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "가사를 입력해 주세요";
         this.textInput.value = '';
@@ -171,7 +173,7 @@ export class GameScene extends Phaser.Scene {
         if (canSetText(this.previousSentenceText) && canSetText(this.currentSentenceText) && canSetText(this.upcomingSentenceText)) {
             this.previousSentenceText.setText(this.previousSentence.raw);
 
-            if(this.typingTimerLimit >= 27 * 1000) {
+            if(this.typingTimerLimit == 30 * 1000) {
                 this.currentSentenceText.setText(this.currentSentence.raw);
                 this.upcomingSentenceText.setText(this.upcomingSentence.raw);
             } else {
@@ -235,6 +237,7 @@ export class GameScene extends Phaser.Scene {
             });
 
             this.sound.play('fail');
+            this.cameras.main.shake(200, 0.003);
         }
 
         this.textInput.value = '';
@@ -262,6 +265,7 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.sound.play('fail');
+        this.cameras.main.shake(200, 0.003);
 
         this.updateScoreAndHealth();
     }
