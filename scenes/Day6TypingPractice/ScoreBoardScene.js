@@ -18,7 +18,7 @@ export class ScoreBoardScene extends Phaser.Scene {
         this.sound.play('good');
 
         // 배경
-        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xfffad4); // '#fffad4ff'
+        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setAlpha(0.2); // '#e6ceb3ff'
 
         // 테두리
         this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x3e3988);
@@ -40,11 +40,7 @@ export class ScoreBoardScene extends Phaser.Scene {
             custom: { families: ['DOSGothic'] },
             active: async () => {
                 this.add.text(100, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(800, 1100, "callthefront3-day6-fangame.pages.dev", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 })
-                .setInteractive().on('pointerdown', () => {
-                    window.open("https://callthefront3-day6-fangame.pages.dev");
-                });
-                
+               
                 // 다시하기 텍스트
                 this.add.text(800, 940, "다시하기", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#3e3988' })
                     .setOrigin(0.5, 0.5)
@@ -53,7 +49,7 @@ export class ScoreBoardScene extends Phaser.Scene {
                 // 내 점수
                 const portrait_key = 'face' + this.character;
 
-                if(this.score < 100)
+                if(this.score < 200)
                     this.add.sprite(600, 180, portrait_key).setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x3e3988).play(portrait_key + ':sad');
                 else
                     this.add.sprite(600, 180, portrait_key).setDisplaySize(400, 400).setOrigin(0, 0).setTintFill(0x3e3988).play(portrait_key + ':joy');
