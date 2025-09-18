@@ -9,14 +9,17 @@ const config = {
         mode: Phaser.Scale.FIT,
         parent: 'game-container',
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600
+        width: 1600,
+        height: 1200,
     },
+    render: {
+        pixelArt: false,
+        antialias: true,
+    },
+    resolution: window.devicePixelRatio,
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: false
-        }
+        arcade: { debug: false }
     },
     scene: [ CharSelectScene, GameScene, ScoreBoardScene ]
 };

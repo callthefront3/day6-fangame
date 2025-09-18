@@ -16,6 +16,8 @@ export class CharSelectScene extends Phaser.Scene {
         this.load.spritesheet('arrow', 'assets/Day6TypingPractice/UI/arrow.png', { frameWidth: 94, frameHeight: 100 });
         this.load.spritesheet('inputBar', 'assets/Day6TypingPractice/UI/inputBar.png', { frameWidth: 1956, frameHeight: 152 });
         this.load.spritesheet('button', 'assets/Day6TypingPractice/UI/button.png', { frameWidth: 596, frameHeight: 134 });
+        this.load.spritesheet('timeBox', 'assets/Day6TypingPractice/UI/timeBox.png', { frameWidth: 2073, frameHeight: 79 });
+        this.load.image('timeBar', 'assets/Day6TypingPractice/UI/timeBar.PNG');
         this.load.spritesheet('face1', 'assets/Day6TypingPractice/portrait/sungjin_sheet.PNG', { frameWidth: 520, frameHeight: 520 });
         this.load.spritesheet('face2', 'assets/Day6TypingPractice/portrait/youngk_sheet.PNG', { frameWidth: 520, frameHeight: 520 });
         this.load.spritesheet('face3', 'assets/Day6TypingPractice/portrait/wonpil_sheet.png', { frameWidth: 520, frameHeight: 520 });
@@ -56,10 +58,14 @@ export class CharSelectScene extends Phaser.Scene {
                             , repeat: -1 });
         }
 
-        // 캐릭터 선택
-        this.portrait = this.add.sprite(100, 200, 'face1').setDisplaySize(200, 200).setOrigin(0, 0).play('face1:normal');
-        this.arrow_left = this.add.sprite(50, 285, 'arrow').setDisplaySize(30, 30).setOrigin(0, 0).setFlipX(true).play('arrow:doodle');
-        this.arrow_right = this.add.sprite(320, 285, 'arrow').setDisplaySize(30, 30).setOrigin(0, 0).play('arrow:doodle');
+        // 테두리
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+
+        // 캐릭터 선택 (좌표 ×2, 크기 ×2)
+        this.portrait = this.add.sprite(200, 400, 'face1').setDisplaySize(400, 400).setOrigin(0, 0).play('face1:normal');
+        this.arrow_left = this.add.sprite(100, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).setFlipX(true).play('arrow:doodle');
+        this.arrow_right = this.add.sprite(640, 570, 'arrow').setDisplaySize(60, 60).setOrigin(0, 0).play('arrow:doodle');
 
         this.arrow_left.setInteractive().on('pointerdown', () => {
             this.character = this.character - 1 < 1 ? 4 : this.character - 1;
@@ -73,26 +79,27 @@ export class CharSelectScene extends Phaser.Scene {
             this.sound.play('fail');
         });
 
-        // 닉네임 입력
+        // 닉네임 입력 (좌표 ×2, 폰트 크기 ×2)
         WebFont.load({
             custom: {
                 families: ['DOSGothic']
             },
             active: () => {
-                this.add.text(370, 200, "이름", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
-                this.add.text(560, 360, "게임 시작", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 2, bottom: 2 });
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(740, 400, "이름", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
         
-        this.add.sprite(370, 260, 'inputBar').setDisplaySize(380, 40).setOrigin(0, 0).play('inputBar:doodle');
+        this.add.sprite(740, 520, 'inputBar').setDisplaySize(760, 80).setOrigin(0, 0).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "김마이데이";
         this.textInput.setAttribute('maxlength', '8');
         this.textInput.addEventListener('input', () => this.playTypingSound());
 
-        // 게임 시작하기 버튼
-        const button = this.add.sprite(370, 320, 'button')
-            .setDisplaySize(380, 80)
+        // 게임 시작하기 버튼 (좌표 ×2, 크기 ×2)
+        const button = this.add.sprite(740, 640, 'button')
+            .setDisplaySize(760, 160)
             .setOrigin(0, 0)
             .play('button:doodle')
             .setInteractive()
@@ -117,28 +124,20 @@ export class CharSelectScene extends Phaser.Scene {
         const canvas = document.querySelector("canvas");
         const textInput = document.getElementById('textInput');
         const rect = canvas.getBoundingClientRect();
-        const ratio = rect.width / 800;
+        const ratio = rect.width / 1600; // ✅ 800 → 1600
 
-        textInput.style.width = 380 * ratio + "px";
-        textInput.style.height = 40 * ratio + "px";
-
-        const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        const keyboardThreshold = window.innerHeight * 0.7; // 화면의 70% 이하로 줄어들면 키보드 등장으로 간주
-
-        if (viewportHeight < keyboardThreshold) { // 키보드 등장
-            textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.top  = (rect.top + 260 * ratio) + "px";
-        } else { // 키보드 사라짐
-            textInput.style.left = (rect.left + 370 * ratio) + "px";
-            textInput.style.top  = (rect.top + 260 * ratio) + "px";
-        }
+        textInput.style.width = 760 * ratio + "px";
+        textInput.style.height = 80 * ratio + "px";
+    
+        textInput.style.left = (rect.left + 740 * ratio) + "px";
+        textInput.style.top  = (rect.top + 520 * ratio) + "px";
     }
 
     redrawPortrait() {
         const portrait_key = 'face' + this.character;
 
         this.portrait.destroy();
-        this.portrait = this.add.sprite(100, 200, portrait_key).setDisplaySize(200, 200).setOrigin(0, 0).play(portrait_key + ':normal');
+        this.portrait = this.add.sprite(200, 400, portrait_key).setDisplaySize(400, 400).setOrigin(0, 0).play(portrait_key + ':normal');
     }
     
     playTypingSound() {

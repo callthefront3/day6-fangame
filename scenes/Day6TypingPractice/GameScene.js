@@ -55,8 +55,6 @@ export class GameScene extends Phaser.Scene {
     preload() {
         this.load.text('lyrics', 'assets/Day6TypingPractice/lyrics.txt');
         this.load.text('lyrics_blind', 'assets/Day6TypingPractice/lyrics_blind.txt');
-        this.load.spritesheet('timeBox', 'assets/Day6TypingPractice/UI/timeBox.png', { frameWidth: 2073, frameHeight: 79 });
-        this.load.image('timeBar', 'assets/Day6TypingPractice/UI/timeBar.PNG');
     }
 
     create() {
@@ -65,9 +63,13 @@ export class GameScene extends Phaser.Scene {
             this.anims.create({ key: "timeBox:doodle", frames: "timeBox", frameRate: 4, repeat: -1 });
         }
 
+        // 테두리
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+
         // 얼굴 스프라이트
-        this.portrait = this.add.sprite(70, 100, this.portrait_key)
-            .setDisplaySize(140, 140)
+        this.portrait = this.add.sprite(140, 200, this.portrait_key)
+            .setDisplaySize(280, 280)
             .setOrigin(0, 0)
             .play(this.portrait_key + ':normal');
 
@@ -79,9 +81,9 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.previousSentenceText = this.add.text(400, 280, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
-                this.currentSentenceText = this.add.text(400, 335, "", { fontFamily: "DOSGothic", fontSize: '36px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
-                this.upcomingSentenceText = this.add.text(400, 390, "", { fontFamily: "DOSGothic", fontSize: '24px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 2, bottom: 2 });
+                this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#c5bdbdff' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
 
@@ -89,20 +91,21 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.nicknameText = this.add.text(230, 100, this.nickname, { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
-                this.healthText = this.add.text(230, 150, '체력: 100', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
-                this.scoreText = this.add.text(230, 200, '점수: 0', { fontFamily: "DOSGothic", fontSize: '30px', fill: '#000' }).setPadding({ top: 2, bottom: 2 });
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
         // 타임바
-        this.add.sprite(50, 480, 'timeBox').setDisplaySize(700, 20).setOrigin(0, 0).play('timeBox:doodle');
-        this.timeBar = this.add.image(50, 490, 'timeBar').setDisplaySize(690, 20).setOrigin(0, 0.5);
+        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).play('timeBox:doodle');
+        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5);
         this.timeBar.fullWidth = this.timeBar.width;
         this.timeBar.thisLimit = this.typingTimerLimit;
 
         // 텍스트 입력 DOM
-        this.add.sprite(70, 430, 'inputBar').setDisplaySize(660, 40).setOrigin(0, 0).play('inputBar:doodle');
+        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
         this.textInput.placeholder = "가사를 입력해 주세요";
         this.textInput.value = '';
@@ -137,13 +140,13 @@ export class GameScene extends Phaser.Scene {
         const progress = Phaser.Math.Clamp(this.typingTimer / Math.max(1, timeLimit), 0, 1);
 
         if (this.timeBar && typeof this.timeBar.setCrop === 'function' && typeof this.timeBar.fullWidth === 'number') {
-            this.timeBar.setCrop(0, 0, this.timeBar.fullWidth * progress, this.timeBar.height || 20);
+            this.timeBar.setCrop(0, 0, this.timeBar.fullWidth * progress, this.timeBar.height || 40);
         }
 
         // 레벨 변경
         if (this.levelTimer > 30 * 1000) {
             this.typingTimerLimit -= 3 * 1000;
-            this.typingTimerLimit = this.typingTimerLimit <= 7 * 1000 ? 7 * 1000 : this.typingTimerLimit;
+            this.typingTimerLimit = this.typingTimerLimit <= 10 * 1000 ? 10 * 1000 : this.typingTimerLimit;
             this.levelTimer = 0;
         }
 
@@ -166,8 +169,14 @@ export class GameScene extends Phaser.Scene {
         const canSetText = obj => obj && typeof obj.setText === 'function' && obj.scene === this;
         if (canSetText(this.previousSentenceText) && canSetText(this.currentSentenceText) && canSetText(this.upcomingSentenceText)) {
             this.previousSentenceText.setText(this.previousSentence.raw);
-            this.currentSentenceText.setText(this.currentSentence.masking);
-            this.upcomingSentenceText.setText(this.upcomingSentence.masking);
+
+            if(this.typingTimerLimit >= 27 * 1000) {
+                this.currentSentenceText.setText(this.currentSentence.raw);
+                this.upcomingSentenceText.setText(this.upcomingSentence.raw);
+            } else {
+                this.currentSentenceText.setText(this.currentSentence.masking);
+                this.upcomingSentenceText.setText(this.upcomingSentence.masking);
+            }
         }
 
         // input 박스 위치 조정
@@ -175,21 +184,13 @@ export class GameScene extends Phaser.Scene {
         const textInput = this.textInput;
         if (canvas && textInput) {
             const rect = canvas.getBoundingClientRect();
-            const ratio = rect.width / 800;
+            const ratio = rect.width / 1600; // ✅ 해상도 변경
 
-            textInput.style.width = 660 * ratio + "px";
-            textInput.style.height = 40 * ratio + "px";
+            textInput.style.width = 1320 * ratio + "px";
+            textInput.style.height = 80 * ratio + "px";
 
-            const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-            const keyboardThreshold = window.innerHeight * 0.7;
-
-            if (viewportHeight < keyboardThreshold) { // 키보드 등장
-                textInput.style.left = (rect.left + 70 * ratio) + "px";
-                textInput.style.top = (rect.top + 430 * ratio) + "px";
-            } else { // 키보드 사라짐
-                textInput.style.left = (rect.left + 70 * ratio) + "px";
-                textInput.style.top = (rect.top + 430 * ratio) + "px";
-            }
+            textInput.style.left = (rect.left + 140 * ratio) + "px";
+            textInput.style.top = (rect.top + 860 * ratio) + "px";
         }
     }
 
@@ -258,6 +259,8 @@ export class GameScene extends Phaser.Scene {
             this.portrait.play(this.portrait_key + ':normal');
             this.portraitTimer = null;
         });
+
+        this.sound.play('fail');
 
         this.updateScoreAndHealth();
     }
