@@ -230,7 +230,7 @@ export class GameScene extends Phaser.Scene {
 
             this.sound.play('good');
         } else {
-            this.typingTimer -= 3 * 1000;
+            this.typingTimer = Math.max(1000, this.typingTimer - 3 * 1000);
 
             if (this.portraitTimer)
                 this.portraitTimer.remove(false);
