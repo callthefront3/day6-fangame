@@ -95,7 +95,11 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSGothic'] },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(100, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(800, 1100, "callthefront3-day6-fangame.pages.dev", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 })
+                .setInteractive().on('pointerdown', () => {
+                    window.open("https://callthefront3-day6-fangame.pages.dev");
+                });
                 this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
                 this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
                 this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
@@ -129,7 +133,15 @@ export class GameScene extends Phaser.Scene {
         this.events.on('destroy', this.onShutdown, this);
 
         // 초기 문장 세팅
-        this.pickSentence();
+        let randIdx = Phaser.Math.Between(0, this.lyricsList.length - 1);
+        let raw = this.lyricsList[randIdx];
+        let masked = this.lyricsBlindList[randIdx];
+        this.currentSentence = { raw: raw, masking: masked };
+
+        randIdx = Phaser.Math.Between(0, this.lyricsList.length - 1);
+        raw = this.lyricsList[randIdx];
+        masked = this.lyricsBlindList[randIdx];
+        this.upcomingSentence = { raw: raw, masking: masked };
     }
 
     update(_, delta) {
@@ -152,11 +164,6 @@ export class GameScene extends Phaser.Scene {
             this.typingTimerLimit -= 3 * 1000;
             this.typingTimerLimit = this.typingTimerLimit <= 10 * 1000 ? 10 * 1000 : this.typingTimerLimit;
             this.levelTimer = 0;
-        }
-
-        // 새 문장 필요 시
-        if (this.currentSentence.raw === "") {
-            this.pickSentence();
         }
 
         // 시간 초과
@@ -190,7 +197,7 @@ export class GameScene extends Phaser.Scene {
             const rect = canvas.getBoundingClientRect();
             const ratio = rect.width / 1600; // ✅ 해상도 변경
 
-            textInput.style.width = 1300 * ratio + "px";
+            textInput.style.width = 1200 * ratio + "px";
             textInput.style.height = 80 * ratio + "px";
 
             textInput.style.left = (rect.left + 140 * ratio) + "px";
@@ -201,14 +208,11 @@ export class GameScene extends Phaser.Scene {
     pickSentence() {
         this.previousSentence = this.currentSentence;
         this.currentSentence = this.upcomingSentence;
-        this.upcomingSentence = { raw: "", masking: "" };
-
-        if (this.upcomingSentence.raw === "") {
-            const randIdx = Phaser.Math.Between(0, this.lyricsList.length - 1);
-            const raw = this.lyricsList[randIdx];
-            const masked = this.lyricsBlindList[randIdx];
-            this.upcomingSentence = { raw: raw, masking: masked };
-        }
+        
+        const randIdx = Phaser.Math.Between(0, this.lyricsList.length - 1);
+        const raw = this.lyricsList[randIdx];
+        const masked = this.lyricsBlindList[randIdx];
+        this.upcomingSentence = { raw: raw, masking: masked };
 
         this.typingTimer = this.typingTimerLimit;
         if (this.timeBar) this.timeBar.thisLimit = this.typingTimerLimit;

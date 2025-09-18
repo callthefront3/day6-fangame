@@ -89,7 +89,11 @@ export class CharSelectScene extends Phaser.Scene {
                 families: ['DOSGothic']
             },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(100, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(800, 1100, "callthefront3-day6-fangame.pages.dev", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 })
+                .setInteractive().on('pointerdown', () => {
+                    window.open("https://callthefront3-day6-fangame.pages.dev");
+                });
                 this.add.text(740, 400, "이름", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#3e3988' }).setPadding({ top: 4, bottom: 4 });
                 this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#3e3988' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
             }
