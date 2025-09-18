@@ -4,7 +4,7 @@ import { ScoreBoardScene } from "/scenes/Day6TypingPractice/ScoreBoardScene.js";
 
 const config = {
     type: Phaser.AUTO,
-    backgroundColor: '#fff',
+    backgroundColor: '#fdf4d4',
     scale: {
         mode: Phaser.Scale.FIT,
         parent: 'game-container',
