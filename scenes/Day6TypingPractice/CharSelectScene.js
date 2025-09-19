@@ -60,7 +60,7 @@ export class CharSelectScene extends Phaser.Scene {
         }
 
         // 배경
-        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setAlpha(0.2); // '#141361ff'
+        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4); // #acf8c5ff
 
         // 테두리
         this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x141361);
@@ -86,16 +86,16 @@ export class CharSelectScene extends Phaser.Scene {
         // 닉네임 입력 (좌표 ×2, 폰트 크기 ×2)
         WebFont.load({
             custom: {
-                families: ['DOSGothic']
+                families: ['DOSIyagiBoldface']
             },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
                 .setInteractive().on('pointerdown', () => {
                     window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
                 });
-                this.add.text(740, 400, "이름", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSGothic", fontSize: '80px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(740, 400, "이름", { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
         

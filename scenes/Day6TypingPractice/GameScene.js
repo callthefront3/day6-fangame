@@ -64,7 +64,7 @@ export class GameScene extends Phaser.Scene {
         }
 
         // 배경
-        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setAlpha(0.2); // '#e6ceb3ff'
+        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4);
 
         // 테두리
         this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x141361);
@@ -83,26 +83,26 @@ export class GameScene extends Phaser.Scene {
 
         // 문장 보여주기
         WebFont.load({
-            custom: { families: ['DOSGothic'] },
+            custom: { families: ['DOSIyagiBoldface'] },
             active: () => {
-                this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
-                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSGothic", fontSize: '72px', fill: '#141361' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
-                this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSGothic", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSIyagiBoldface", fontSize: '72px', fill: '#141361' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
 
         // UI 텍스트
         WebFont.load({
-            custom: { families: ['DOSGothic'] },
+            custom: { families: ['DOSIyagiBoldface'] },
             active: () => {
-                this.add.text(100, 108, "데식타자연습", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#141361' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSGothic", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
                 .setInteractive().on('pointerdown', () => {
                     window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
                 });
-                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSGothic", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSGothic", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
