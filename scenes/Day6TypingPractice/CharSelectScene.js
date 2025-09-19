@@ -7,11 +7,15 @@ export class CharSelectScene extends Phaser.Scene {
         
         this.portrait = null;
         this.textInput = null;
+        this.textInputText = null;
+        this.inputBar = null;
 
         this.startGameListener = null;
     }
 
     preload() {
+        this.load.plugin('rexclickoutsideplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexclickoutsideplugin.min.js', true); 
+
         this.load.script('webfont', 'js/webfont.js');
         this.load.image('background', 'assets/Day6TypingPractice/UI/background.jpg');
         this.load.spritesheet('arrow', 'assets/Day6TypingPractice/UI/arrow.png', { frameWidth: 94, frameHeight: 100 });
@@ -90,20 +94,51 @@ export class CharSelectScene extends Phaser.Scene {
             },
             active: () => {
                 this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
-                .setInteractive().on('pointerdown', () => {
-                    window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
-                });
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                    .setInteractive()
+                    .on('pointerdown', () => {
+                        window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
+                    });
                 this.add.text(740, 400, "이름", { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.textInputText = this.add.text(760, 528, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
                 this.add.text(1120, 720, "게임 시작", { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
         
-        this.add.sprite(740, 520, 'inputBar').setDisplaySize(760, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
-        this.textInput.placeholder = "김마이데이";
         this.textInput.setAttribute('maxlength', '8');
+
         this.textInput.addEventListener('input', () => this.playTypingSound());
+
+        this.textInput.addEventListener('focus', () => {
+            this.textInput.setAttribute('focused', true);
+        });
+
+        this.textInput.addEventListener('blur', () => {
+            this.textInput.removeAttribute('focused');
+        });
+        
+
+        this.inputBar = this.add.sprite(740, 520, 'inputBar').setDisplaySize(760, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle')
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.textInput.focus();
+            });
+
+        this.plugins.get('rexclickoutsideplugin')
+            .add(this.inputBar, { mode: 'pointerdown' })
+            .on('clickoutside', () => {
+                this.textInput.blur();
+            });
+
+        // 커서 깜빡임
+        this.time.addEvent({
+            delay: 500,
+            loop: true,
+            callback: () => {
+                this.cursorVisible = !this.cursorVisible;
+            }
+        });
 
         // 게임 시작하기 버튼 (좌표 ×2, 크기 ×2)
         const button = this.add.sprite(740, 640, 'button')
@@ -116,7 +151,6 @@ export class CharSelectScene extends Phaser.Scene {
                 if (this.textInput.value !== '') {
                     this.sound.play('good');
                     this.scene.start('GameScene', { nickname: this.textInput.value, character: this.character });
-                    this.textInput.style.display = 'none';
                     this.textInput.value = '';
                 } else {
                     this.textInput.classList.add('shake-element');
@@ -129,20 +163,19 @@ export class CharSelectScene extends Phaser.Scene {
     }
 
     update() {
-        // input box 조정
-        const canvas = document.querySelector("canvas");
-        const textInput = document.getElementById('textInput');
-        const rect = canvas.getBoundingClientRect();
-        const ratio = rect.width / 1600; // ✅ 800 → 1600
-
-        textInput.style.width = 680 * ratio + "px";
-        textInput.style.height = 80 * ratio + "px";
-        
-        // offsetTop: 키보드 때문에 뷰포트가 위로 당겨진 값
-        const offsetY = window.visualViewport.offsetTop;
-
-        textInput.style.left = (rect.left + 740 * ratio) + "px";
-        textInput.style.top  = (rect.top + 520 * ratio - offsetY) + "px";
+        // 입력창 갱신
+        if (this.textInputText && this.textInput.value != '') {
+            this.textInputText.setColor('#141361');
+            if (this.textInput.getAttribute('focused') === 'true') {
+                const cursor = this.cursorVisible ? '█' : '';
+                this.textInputText.setText(this.textInput.value + cursor);
+            } else {
+                this.textInputText.setText(this.textInput.value);
+            }
+        } else if (this.textInputText && this.textInput.value == '') {
+            this.textInputText.setColor('#ac9292');
+            this.textInputText.setText("김마이데이");
+        }
     }
 
     redrawPortrait() {

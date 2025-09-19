@@ -14,6 +14,8 @@ export class GameScene extends Phaser.Scene {
         this.portrait = null;
         this.portrait_key = '';
         this.textInput = null;
+        this.textInputText = null;
+        this.inputBar = null;
 
         this.lyricsRawList = [];
         this.lyricsMaskedList = [];
@@ -96,13 +98,14 @@ export class GameScene extends Phaser.Scene {
             custom: { families: ['DOSIyagiBoldface'] },
             active: () => {
                 this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
                 .setInteractive().on('pointerdown', () => {
                     window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
                 });
                 this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
                 this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
                 this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.textInputText = this.add.text(160, 868, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
@@ -113,12 +116,23 @@ export class GameScene extends Phaser.Scene {
         this.timeBar.thisLimit = this.typingTimerLimit;
 
         // 텍스트 입력 DOM
-        this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle');
         this.textInput = document.getElementById('textInput');
-        this.textInput.placeholder = "가사를 입력해 주세요";
-        this.textInput.value = '';
-        textInput.style.display = "inline-block";
-        this.textInput.removeAttribute('maxlength');
+        this.textInput.setAttribute('maxlength', '25');
+
+        this.inputBar = this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle')
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.textInput.focus();
+            });
+
+        // 커서 깜빡임
+        this.time.addEvent({
+            delay: 500,
+            loop: true,
+            callback: () => {
+                this.cursorVisible = !this.cursorVisible;
+            }
+        });
 
         // 이벤트 핸들러 저장 후 등록
         this._onTextInputKeyDown = (event) => {
@@ -190,21 +204,18 @@ export class GameScene extends Phaser.Scene {
             }
         }
 
-        // input 박스 위치 조정
-        const canvas = document.querySelector("canvas");
-        const textInput = this.textInput;
-        if (canvas && textInput) {
-            const rect = canvas.getBoundingClientRect();
-            const ratio = rect.width / 1600; // ✅ 해상도 변경
-
-            textInput.style.width = 1240 * ratio + "px";
-            textInput.style.height = 80 * ratio + "px";
-
-            // offsetTop: 키보드 때문에 뷰포트가 위로 당겨진 값
-            const offsetY = window.visualViewport.offsetTop;
-
-            textInput.style.left = (rect.left + 140 * ratio) + "px";
-            textInput.style.top  = (rect.top + 860 * ratio - offsetY) + "px";
+        // 입력창 갱신
+        if (this.textInputText && this.textInput.value != '') {
+            this.textInputText.setColor('#141361');
+            if (this.textInput.getAttribute('focused') === 'true') {
+                const cursor = this.cursorVisible ? '█' : '';
+                this.textInputText.setText(this.textInput.value + cursor);
+            } else {
+                this.textInputText.setText(this.textInput.value);
+            }
+        } else if (this.textInputText && this.textInput.value == '') {
+            this.textInputText.setColor('#ac9292');
+            this.textInputText.setText("가사를 입력해 주세요");
         }
     }
 
@@ -282,8 +293,8 @@ export class GameScene extends Phaser.Scene {
         if (this._gameOverHandled) return;
         this._gameOverHandled = true;
         this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
-        this.textInput.style.display = 'none';
         this.textInput.value = '';
+        this.textInputText = null;
     }
 
     playTypingSound() {

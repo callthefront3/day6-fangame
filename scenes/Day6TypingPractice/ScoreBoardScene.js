@@ -40,7 +40,7 @@ export class ScoreBoardScene extends Phaser.Scene {
             custom: { families: ['DOSIyagiBoldface'] },
             active: async () => {
                 this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#3e3988' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
                 .setInteractive().on('pointerdown', () => {
                     window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
                 });
@@ -61,12 +61,10 @@ export class ScoreBoardScene extends Phaser.Scene {
                 this.add.text(800, 660, this.nickname, { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' })
                     .setPadding({ top: 4, bottom: 4 })
                     .setOrigin(0.5, 0.5);
+                    
                 this.add.text(800, 780, this.score, { fontFamily: "DOSIyagiBoldface", fontSize: '80px', fill: '#141361' })
                     .setPadding({ top: 4, bottom: 4 })
                     .setOrigin(0.5, 0.5);
-
-                const textInput = document.getElementById('textInput');
-                textInput.style.display = "none";
             }
         });
     }
