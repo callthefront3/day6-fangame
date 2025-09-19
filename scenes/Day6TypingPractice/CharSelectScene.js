@@ -153,11 +153,9 @@ export class CharSelectScene extends Phaser.Scene {
                     this.scene.start('GameScene', { nickname: this.textInput.value, character: this.character });
                     this.textInput.value = '';
                 } else {
-                    this.textInput.classList.add('shake-element');
-
-                    this.textInput.addEventListener('animationend', () => {
-                        this.textInput.classList.remove('shake-element');
-                    });
+                    this.sound.play('good');
+                    this.scene.start('GameScene', { nickname: "김마이데이", character: this.character });
+                    this.textInput.value = '';
                 }
             });
     }
