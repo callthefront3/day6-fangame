@@ -125,6 +125,12 @@ export class GameScene extends Phaser.Scene {
                 this.textInput.focus();
             });
 
+        this.plugins.get('rexclickoutsideplugin')
+            .add(this.inputBar, { mode: 'pointerdown' })
+            .on('clickoutside', () => {
+                this.textInput.blur();
+            });
+
         // 커서 깜빡임
         this.time.addEvent({
             delay: 500,
