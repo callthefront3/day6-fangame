@@ -305,7 +305,6 @@ export class GameScene extends Phaser.Scene {
     onShutdown() {
         if (this.textInput && this._onTextInputKeyDown) {
             this.textInput.removeEventListener('keydown', this._onTextInputKeyDown);
-            this.textInput.style.display = 'none';
             this.textInput.value = '';
         }
     }
