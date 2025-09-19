@@ -200,8 +200,11 @@ export class GameScene extends Phaser.Scene {
             textInput.style.width = 1240 * ratio + "px";
             textInput.style.height = 80 * ratio + "px";
 
+            // offsetTop: 키보드 때문에 뷰포트가 위로 당겨진 값
+            const offsetY = window.visualViewport.offsetTop;
+
             textInput.style.left = (rect.left + 140 * ratio) + "px";
-            textInput.style.top = (rect.top + 860 * ratio) + "px";
+            textInput.style.top  = (rect.top + 860 * ratio - offsetY) + "px";
         }
     }
 

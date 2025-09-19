@@ -60,7 +60,7 @@ export class CharSelectScene extends Phaser.Scene {
         }
 
         // 배경
-        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4); // #acf8c5ff
+        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4);
 
         // 테두리
         this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x141361);
@@ -137,9 +137,12 @@ export class CharSelectScene extends Phaser.Scene {
 
         textInput.style.width = 680 * ratio + "px";
         textInput.style.height = 80 * ratio + "px";
-    
+        
+        // offsetTop: 키보드 때문에 뷰포트가 위로 당겨진 값
+        const offsetY = window.visualViewport.offsetTop;
+
         textInput.style.left = (rect.left + 740 * ratio) + "px";
-        textInput.style.top  = (rect.top + 520 * ratio) + "px";
+        textInput.style.top  = (rect.top + 520 * ratio - offsetY) + "px";
     }
 
     redrawPortrait() {
