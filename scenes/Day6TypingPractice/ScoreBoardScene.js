@@ -33,6 +33,7 @@ export class ScoreBoardScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', () => { 
                 this.sound.play('good');
+                this.textInput.value = '';
                 this.scene.start('GameScene', { nickname: this.nickname, character: this.character }); 
             });
         

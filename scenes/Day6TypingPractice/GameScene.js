@@ -117,7 +117,7 @@ export class GameScene extends Phaser.Scene {
 
         // 텍스트 입력 DOM
         this.textInput = document.getElementById('textInput');
-        this.textInput.setAttribute('maxlength', '25');
+        this.textInput.removeAttribute('maxlength');
 
         this.inputBar = this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle')
             .setInteractive()
@@ -213,12 +213,25 @@ export class GameScene extends Phaser.Scene {
         // 입력창 갱신
         if (this.textInputText && this.textInput.value != '') {
             this.textInputText.setColor('#141361');
-            if (this.textInput.getAttribute('focused') === 'true') {
-                const cursor = this.cursorVisible ? '█' : '';
-                this.textInputText.setText(this.textInput.value + cursor);
-            } else {
-                this.textInputText.setText(this.textInput.value);
+            const maxWidth = 1260; // inputBar 내부 폭
+            
+            let input = this.textInput.value;
+            let clipped = input;
+
+            // clipped 계산
+            this.textInputText.setText(clipped);
+
+            while (this.textInputText.width > maxWidth && clipped.length > 0) {
+                clipped = clipped.slice(1);
+                this.textInputText.setText(clipped);
             }
+
+            // 커서 처리
+            if (this.textInput.getAttribute('focused') == 'true') {
+                const cursor = this.cursorVisible ? '█' : '';
+                this.textInputText.setText(clipped + cursor);
+            }
+
         } else if (this.textInputText && this.textInput.value == '') {
             this.textInputText.setColor('#ac9292');
             this.textInputText.setText("가사를 입력해 주세요");
@@ -298,9 +311,9 @@ export class GameScene extends Phaser.Scene {
     gameOver() {
         if (this._gameOverHandled) return;
         this._gameOverHandled = true;
-        this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
         this.textInput.value = '';
         this.textInputText = null;
+        this.scene.start("ScoreBoardScene", { 'nickname': this.nickname, 'character': this.character, 'score': this.score });
     }
 
     playTypingSound() {
