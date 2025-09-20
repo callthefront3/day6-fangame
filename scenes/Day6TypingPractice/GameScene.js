@@ -182,7 +182,7 @@ export class GameScene extends Phaser.Scene {
         // 레벨 변경
         if (this.levelTimer > 30 * 1000) {
             this.typingTimerLimit -= 3 * 1000;
-            this.typingTimerLimit = this.typingTimerLimit <= 10 * 1000 ? 10 * 1000 : this.typingTimerLimit;
+            this.typingTimerLimit = this.typingTimerLimit <= 7 * 1000 ? 7 * 1000 : this.typingTimerLimit;
             this.levelTimer = 0;
         }
 
