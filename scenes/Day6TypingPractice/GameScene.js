@@ -28,8 +28,8 @@ export class GameScene extends Phaser.Scene {
         this.upcomingSentenceText = null;
 
         this.levelTimer = 0;
-        this.typingTimer = 30 * 1000;
-        this.typingTimerLimit = 30 * 1000;
+        this.typingTimer = 24 * 1000;
+        this.typingTimerLimit = 24 * 1000;
         this.portraitTimer = null;
         this.timeBar = null;
 
@@ -49,8 +49,8 @@ export class GameScene extends Phaser.Scene {
         this.upcomingSentence = { raw: "", masked: "" };
 
         this.levelTimer = 0;
-        this.typingTimer = 30 * 1000;
-        this.typingTimerLimit = 30 * 1000;
+        this.typingTimer = 24 * 1000;
+        this.typingTimerLimit = 24 * 1000;
         this._gameOverHandled = false;
     }
 
@@ -66,17 +66,17 @@ export class GameScene extends Phaser.Scene {
         }
 
         // 배경
-        this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4);
+        // this.add.image(800, 600, 'background').setDisplaySize(1600, 1200).setTint(0xf8ddac).setAlpha(0.4);
 
         // 테두리
-        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x141361);
-        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0).setTintFill(0x141361);
+        this.add.image(100, 150, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
+        this.add.image(100, 1050, 'timeBar').setDisplaySize(1400, 10).setOrigin(0, 0);
 
         // 얼굴 스프라이트
         this.portrait = this.add.sprite(140, 200, this.portrait_key)
             .setDisplaySize(280, 280)
             .setOrigin(0, 0)
-            .setTintFill(0x141361)
+            
             .play(this.portrait_key + ':normal');
 
         // 가사 불러오기
@@ -88,7 +88,7 @@ export class GameScene extends Phaser.Scene {
             custom: { families: ['DOSIyagiBoldface'] },
             active: () => {
                 this.previousSentenceText = this.add.text(800, 560, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
-                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSIyagiBoldface", fontSize: '72px', fill: '#141361' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
+                this.currentSentenceText = this.add.text(800, 670, "", { fontFamily: "DOSIyagiBoldface", fontSize: '72px', fill: '#000' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
                 this.upcomingSentenceText = this.add.text(800, 780, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#ac9292' }).setOrigin(0.5).setPadding({ top: 4, bottom: 4 });
             }
         });
@@ -97,21 +97,21 @@ export class GameScene extends Phaser.Scene {
         WebFont.load({
             custom: { families: ['DOSIyagiBoldface'] },
             active: () => {
-                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
-                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#141361' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
+                this.add.text(800, 108, "데식타자연습", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#000' }).setOrigin(0.5, 0.5).setPadding({ top: 4, bottom: 4 });
+                this.add.text(100, 108, "← 홈으로", { fontFamily: "DOSIyagiBoldface", fontSize: '40px', fill: '#000' }).setOrigin(0, 0.5).setPadding({ top: 4, bottom: 4 })
                 .setInteractive().on('pointerdown', () => {
                     window.open("https://callthefront3-day6-fangame.pages.dev", "_self");
                 });
-                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
-                this.textInputText = this.add.text(160, 868, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#141361' }).setPadding({ top: 4, bottom: 4 });
+                this.nicknameText = this.add.text(460, 200, this.nickname, { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.healthText = this.add.text(460, 300, '체력: 100', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.scoreText = this.add.text(460, 400, '점수: 0', { fontFamily: "DOSIyagiBoldface", fontSize: '60px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
+                this.textInputText = this.add.text(160, 868, "", { fontFamily: "DOSIyagiBoldface", fontSize: '48px', fill: '#000' }).setPadding({ top: 4, bottom: 4 });
             }
         });
 
         // 타임바
-        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).setTintFill(0x141361).play('timeBox:doodle');
-        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5).setTintFill(0x141361);
+        this.add.sprite(100, 960, 'timeBox').setDisplaySize(1400, 40).setOrigin(0, 0).play('timeBox:doodle');
+        this.timeBar = this.add.image(100, 980, 'timeBar').setDisplaySize(1380, 40).setOrigin(0, 0.5);
         this.timeBar.fullWidth = this.timeBar.width;
         this.timeBar.thisLimit = this.typingTimerLimit;
 
@@ -119,7 +119,7 @@ export class GameScene extends Phaser.Scene {
         this.textInput = document.getElementById('textInput');
         this.textInput.removeAttribute('maxlength');
 
-        this.inputBar = this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).setTintFill(0x141361).play('inputBar:doodle')
+        this.inputBar = this.add.sprite(140, 860, 'inputBar').setDisplaySize(1320, 80).setOrigin(0, 0).play('inputBar:doodle')
             .setInteractive()
             .on('pointerdown', () => {
                 this.textInput.focus();
@@ -180,9 +180,9 @@ export class GameScene extends Phaser.Scene {
         }
 
         // 레벨 변경
-        if (this.levelTimer > 30 * 1000) {
+        if (this.levelTimer > 30 * 1000) { // 30초마다
             this.typingTimerLimit -= 3 * 1000;
-            this.typingTimerLimit = this.typingTimerLimit <= 7 * 1000 ? 7 * 1000 : this.typingTimerLimit;
+            this.typingTimerLimit = this.typingTimerLimit <= 10 * 1000 ? 10 * 1000 : this.typingTimerLimit;
             this.levelTimer = 0;
         }
 
@@ -201,7 +201,7 @@ export class GameScene extends Phaser.Scene {
         if (canSetText(this.previousSentenceText) && canSetText(this.currentSentenceText) && canSetText(this.upcomingSentenceText)) {
             this.previousSentenceText.setText(this.previousSentence.raw);
 
-            if(timeLimit == 30 * 1000) {
+            if(timeLimit == 24 * 1000) {
                 this.currentSentenceText.setText(this.currentSentence.raw);
                 this.upcomingSentenceText.setText(this.upcomingSentence.raw);
             } else {
@@ -212,7 +212,7 @@ export class GameScene extends Phaser.Scene {
 
         // 입력창 갱신
         if (this.textInputText && this.textInput.value != '') {
-            this.textInputText.setColor('#141361');
+            this.textInputText.setColor('#000');
             const maxWidth = 1260; // inputBar 내부 폭
             
             let input = this.textInput.value;
@@ -263,7 +263,7 @@ export class GameScene extends Phaser.Scene {
 
             this.sound.play('good');
         } else {
-            this.typingTimer = Math.max(1, this.typingTimer - 3 * 1000);
+            this.typingTimer = Math.max(1, this.typingTimer - 2 * 1000);
 
             if (this.portraitTimer)
                 this.portraitTimer.remove(false);

@@ -27,7 +27,8 @@
         width: 100%;
         height: 100%;
         font-family: 'galmuri';
-        color: #000;
+        color: #fff;
+        background-color: #302e2e;
     }
 
     a {
@@ -53,7 +54,7 @@
         background-size: 200% 200%;
         animation: gradientMove 30s linear infinite;
         */
-        background-color: #fff;
+        background-color: #302e2e;
         z-index: -1;
     }
 
@@ -88,10 +89,10 @@
         width: 80vw; max-width: 600px;
         height: 30vw; max-height: 180px;
         box-shadow:
-            -5px 0 0 0 #000,
-            5px 0 0 0 #000,
-            0 -5px 0 0 #000,
-            0 5px 0 0 #000;
+            -5px 0 0 0 #a1cfcd,
+            5px 0 0 0 #a1cfcd,
+            0 -5px 0 0 #a1cfcd,
+            0 5px 0 0 #a1cfcd;
             
         cursor: pointer;
         overflow: hidden;
@@ -105,6 +106,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transform: scaleY(0.99) translateY(-2px);
     }
 
     .game-box .game-title {
@@ -112,7 +114,7 @@
         bottom: 0; left: 0;
         margin: 0;
         width: 100%; height: 20%;
-        background: #000;
+        background: #a1cfcd;
 
         display: flex;
         justify-content: center;
@@ -121,8 +123,8 @@
 
     .game-box .game-title p {
         text-decoration: none;
-        color: #fff;
-        font-size: 0.8rem;
+        color: #302e2e;
+        font-size: 1rem;
         animation: marquee 1s steps(6) infinite alternate;
     }
 
