@@ -51,18 +51,13 @@
         display: grid;
         grid-auto-columns: 50%;
         grid-auto-rows: 50%;
-        gap: 1em;
         grid-template-areas:
             "box-1 box-1"
             "box-2 box-3";
-        transform: scaleX(0.9);
     }
 
     .box {
-        position: relative;
-        padding: 20px;
-        min-height: 200px;
-        display: flex;
+        margin: 0.5em;
         background-size: cover;
         background-position: center;
         cursor: pointer;
@@ -74,13 +69,20 @@
         transform: scale(1.05);
     }
 
-    .box .title {
+    .box div {
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        min-height: 120px;
+    }
+
+    .box div .title {
+        margin: 0; padding: 1px 3px;
         align-self: flex-start;
         color: var(--text);
         font-size: 1rem;
         word-break: keep-all;
-        background-color: #FFEBAD;
-        padding: 1px 3px;
+        background-color: #FFEBAD;   
     }
 
     .notice {
@@ -96,13 +98,19 @@
     <h1><span style="font-family: 'Apple Symbols', 'Segoe UI Symbol', 'Noto Sans Symbols', 'Symbola', sans-serif;">🐕</span>.<br>Day6 팬메이드 게임</h1>
     <div class="grid-container">
         <a class="box" style="grid-area: box-1; background-image: url('assets/index/luckystore.jpg');" href="https://day6-luckystore.pages.dev/">
-            <div class="title">행운상점 타이쿤</div>
+            <div>
+                <p class="title">행운상점 타이쿤</p>
+            </div>
         </a>
         <a class="box" style="grid-area: box-2; background-image: url('assets/index/denimals-puzzle.jpg');" href="https://callthefront3.itch.io/denimals-puzzle">
-            <div class="title">데니멀즈를 조합해라!</div>
+            <div>
+                <p class="title">데니멀즈를 조합해라!</p>
+            </div>
         </a>
         <a class="box" style="grid-area: box-3; background-image: url('assets/index/typingpractice.jpg');" href="/Day6TypingPractice.html">
-            <div class="title">데식타자연습</div>
+            <div>
+                <p class="title">데식타자연습</p>
+            </div>
         </a>
     </div>
     <div class="notice">
