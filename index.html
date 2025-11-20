@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>:: Day6 팬메이드 게임 ::</title>
-    <link rel=" shortcut icon " href="assets/index/favicon.ico">
+    <link rel="shortcut icon " href="assets/index/favicon.ico">
     <link rel="icon" href="assets/index/favicon.ico">
 
     <style>
@@ -15,132 +15,76 @@
     }
 
     @font-face{
-        font-family: galmuri;
+        font-family: 'galmuri';
         src: url('assets/index/Galmuri11-Bold.ttf') format('truetype');
         font-weight: bold;
     }
 
-    html, body {
-        margin: 0;
-        padding: 0;
-        padding-top: 3vh;
-        width: 100%;
-        height: 100%;
+    :root {
+      --background : #FFF6BF;
+      --text : #625f4e;
+      --box1 : #FFEBAD;
+      --box2 : #ABD9FF;
+      --box3 : #C3F8FF;
+      --shadow : #22222246;
+    }
+
+    body {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10%;
+
         font-family: 'galmuri';
-        color: #fff;
-        background-color: #302e2e;
-    }
-
-    a {
-        color: inherit;
-    }
-
-    #bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        /*
-        background: linear-gradient(
-            120deg,
-            #40e0d0 0%, #40e0d0 16.66%,
-            #5de9bf 16.66%, #5de9bf 33.33%,
-            #80f0aa 33.33%, #80f0aa 50%,
-            #a7f594 50%, #a7f594 66.66%,
-            #cff880 66.66%, #cff880 83.33%,
-            #f9f871 83.33%, #f9f871 100%
-        );
-        background-size: 200% 200%;
-        animation: gradientMove 30s linear infinite;
-        */
-        background-color: #302e2e;
-        z-index: -1;
-    }
-
-    @keyframes gradientMove {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
+        color: var(--text);
+        background-color: var(--background);
     }
 
     h1 {
-        margin: 2vh 0px 2vh 0px;
+        margin: 2dvh auto 2dvh auto;
         font-size: 1.8rem;
         text-align: center;
     }
     
-    .list {
-        margin-top: 1vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .grid-container {
+        display: grid;
+        grid-auto-columns: 50%;
+        grid-auto-rows: 50%;
+        gap: 1em;
+        grid-template-areas:
+            "box-1 box-1"
+            "box-2 box-3";
+        transform: scaleX(0.9);
     }
 
-    .game-box {
+    .box {
         position: relative;
-        margin: 1.6vh 20vw;
-        width: 80vw; max-width: 600px;
-        height: 30vw; max-height: 180px;
-        box-shadow:
-            -5px 0 0 0 #a1cfcd,
-            5px 0 0 0 #a1cfcd,
-            0 -5px 0 0 #a1cfcd,
-            0 5px 0 0 #a1cfcd;
-            
+        padding: 30px;
+        min-height: 200px;
+        display: flex;
+        background-size: cover;
+        background-position: center;
         cursor: pointer;
-        overflow: hidden;
-        transition: 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+        border-radius: 12px;
+        transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .game-box:hover {
+    .box:hover {
         transform: scale(1.05);
     }
 
-    .game-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: scaleY(0.99) translateY(-2px);
-    }
-
-    .game-box .game-title {
-        position: absolute;
-        bottom: 0; left: 0;
-        margin: 0;
-        width: 100%; height: 20%;
-        background: #a1cfcd;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .game-box .game-title p {
-        text-decoration: none;
-        color: #302e2e;
+    .box .title {
+        align-self: flex-end;
+        color: var(--text);
         font-size: 1rem;
-        animation: marquee 1s steps(6) infinite alternate;
-    }
-
-    @keyframes marquee {
-        from {
-            transform: translateX(-6px);
-        }
-        to {
-            transform: translateX(6px);
-        }
+        word-break: keep-all;
+        background-color: #FFEBAD;
+        padding: 1px 3px;
     }
 
     .notice {
-        margin: 3vh auto 2vh auto;
-        width: 80vw; max-width: 600px;
-        padding-bottom: 6vh;
+        margin: 3dvh auto 8dvh auto;
     }
     
     .notice p {
@@ -149,27 +93,16 @@
     </style>
 </head>
 <body>
-    <div id="bg"></div>
     <h1><span style="font-family: 'Apple Symbols', 'Segoe UI Symbol', 'Noto Sans Symbols', 'Symbola', sans-serif;">🐕</span>.<br>Day6 팬메이드 게임</h1>
-    <h3></h3>
-    <div class="list">
-        <a class="game-box" href="https://day6-luckystore.pages.dev/">
-            <img src="assets/index/luckystore.jpg">
-            <div class="game-title">
-                <p>「행운상점 타이쿤」 바로가기</p>
-            </div>
+    <div class="grid-container">
+        <a class="box" style="grid-area: box-1; background-image: url('assets/index/luckystore.jpg');" href="https://day6-luckystore.pages.dev/">
+            <div class="title">행운상점 타이쿤</div>
         </a>
-        <a class="game-box" href="https://callthefront3.itch.io/denimals-puzzle">
-            <img src="assets/index/denimals-puzzle.jpg">
-            <div class="game-title">
-                <p>「데니멀즈를 조합해라!」 바로가기</p>
-            </div>
+        <a class="box" style="grid-area: box-2; background-image: url('assets/index/denimals-puzzle.jpg');" href="https://callthefront3.itch.io/denimals-puzzle">
+            <div class="title">데니멀즈를 조합해라!</div>
         </a>
-        <a class="game-box" href="/Day6TypingPractice.html">
-            <img src="assets/index/typingpractice.jpg"> 
-            <div class="game-title">
-                <p>「데식타자연습」 바로가기</p>
-            </div>
+        <a class="box" style="grid-area: box-3; background-image: url('assets/index/typingpractice.jpg');" href="/Day6TypingPractice.html">
+            <div class="title">데식타자연습</div>
         </a>
     </div>
     <div class="notice">
