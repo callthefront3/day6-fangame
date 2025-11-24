@@ -54,6 +54,10 @@
         z-index: -1;       /* 뒤로 보내기 */
         filter: brightness(0.9); /* 필요하면 조금 어둡게 */
     }
+    video[poster]{ 
+        height:100%;
+        width:100%;
+    }
 
     h1 {
         position: relative;
@@ -121,7 +125,7 @@
     </style>
 </head>
 <body>
-    <video src="assets/index/background.mp4" muted autoplay loop></video>
+    <video src="assets/index/background.mp4" poster="assets/index/background.jpg" muted autoplay loop></video>
     <h1><span style="font-family: 'Apple Symbols', 'Segoe UI Symbol', 'Noto Sans Symbols', 'Symbola', sans-serif;">🐕</span>.<br>Day6 팬메이드 게임</h1>
     <div class="grid-container">
         <a class="box" style="grid-area: box-1; background-image: url('assets/index/luckystore.jpg');" href="https://day6-luckystore.pages.dev/">
